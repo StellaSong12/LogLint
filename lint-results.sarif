@@ -1,0 +1,491 @@
+{
+    "$schema" : "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+    "version" : "2.1.0",
+    "runs" : [
+        {
+            "tool": {
+                "driver": {
+                    "name": "Android Lint",
+                    "fullName": "Android Lint (in gradle)",
+                    "version": "7.2.0",
+                    "semanticVersion": "7.2.0",
+                    "organization": "Google",
+                    "informationUri": "https://developer.android.com/studio/write/lint",
+                    "fullDescription": {
+                        "text": "Static analysis originally for Android source code but now performing general analysis"
+                    },
+                    "language": "en-US",
+                    "rules": [
+                        {
+                            "id": "GradleDependency",
+                            "shortDescription": {
+                                "text": "Obsolete Gradle Dependency"
+                            },
+                            "fullDescription": {
+                                "text": "This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+                            },
+                            "defaultConfiguration": {
+                                "level": "warning",
+                                "rank": 70
+                            },
+                            "properties": {
+                                "tags": [
+                                    "Correctness"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "OldTargetApi",
+                            "shortDescription": {
+                                "text": "Target SDK attribute is not targeting latest version"
+                            },
+                            "fullDescription": {
+                                "text": "When your application runs on a version of Android that is more recent than your targetSdkVersion specifies that it has been tested with, various compatibility modes kick in. This ensures that your application continues to work, but it may look out of place. For example, if the targetSdkVersion is less than 14, your app may get an option button in the UI.\n\nTo fix this issue, set the targetSdkVersion to the highest available value. Then test your app to make sure everything works correctly. You may want to consult the compatibility notes to see what changes apply to each version you are adding support for: https://developer.android.com/reference/android/os/Build.VERSION_CODES.html as well as follow this guide:\nhttps://developer.android.com/distribute/best-practices/develop/target-sdk.html",
+                                "markdown": "When your application runs on a version of Android that is more recent than your `targetSdkVersion` specifies that it has been tested with, various compatibility modes kick in. This ensures that your application continues to work, but it may look out of place. For example, if the `targetSdkVersion` is less than 14, your app may get an option button in the UI.\n\nTo fix this issue, set the `targetSdkVersion` to the highest available value. Then test your app to make sure everything works correctly. You may want to consult the compatibility notes to see what changes apply to each version you are adding support for: https://developer.android.com/reference/android/os/Build.VERSION_CODES.html as well as follow this guide:\nhttps://developer.android.com/distribute/best-practices/develop/target-sdk.html"
+                            },
+                            "defaultConfiguration": {
+                                "level": "warning",
+                                "rank": 50
+                            },
+                            "properties": {
+                                "tags": [
+                                    "Correctness"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "SampleId",
+                            "shortDescription": {
+                                "text": "Lint Mentions"
+                            },
+                            "fullDescription": {
+                                "text": "This check highlights string literals in code which mentions the word lint. Blah blah blah.\n\nAnother paragraph here.",
+                                "markdown": "This check highlights string literals in code which mentions the word `lint`. Blah blah blah.\n\nAnother paragraph here."
+                            },
+                            "defaultConfiguration": {
+                                "level": "warning",
+                                "rank": 50
+                            },
+                            "properties": {
+                                "tags": [
+                                    "Correctness"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            "originalUriBaseIds": {
+                "%SRCROOT%": {
+                    "uri": "file:///Users/sonsiting/Desktop/use/android-custom-lint-rules/"
+                }
+            },
+            "results": [
+                {
+                    "ruleId": "OldTargetApi",
+                    "ruleIndex": 1,
+                    "message": {
+                        "text": "Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the android.os.Build.VERSION_CODES javadoc for details."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "library/build.gradle"
+                                },
+                                "region": {
+                                    "startLine": 7,
+                                    "startColumn": 9,
+                                    "endLine": 7,
+                                    "endColumn": 28,
+                                    "charOffset": 125,
+                                    "charLength": 19,
+                                    "snippet": {
+                                        "text": "targetSdkVersion 32"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 5,
+                                    "endLine": 10,
+                                    "snippet": {
+                                        "text": "    defaultConfig {\n        minSdkVersion 19\n        targetSdkVersion 32\n    }"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "description": {
+                                "text": "Update targetSdkVersion to 33"
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "library/build.gradle"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 7,
+                                                "startColumn": 26,
+                                                "charOffset": 142,
+                                                "endLine": 7,
+                                                "endColumn": 28,
+                                                "charLength": 2
+                                            },
+                                            "insertedContent": {
+                                                "text": "33\n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "c608093ac37fa52b"
+                    }
+                },
+                {
+                    "ruleId": "OldTargetApi",
+                    "ruleIndex": 1,
+                    "message": {
+                        "text": "Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the android.os.Build.VERSION_CODES javadoc for details."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/build.gradle"
+                                },
+                                "region": {
+                                    "startLine": 12,
+                                    "startColumn": 9,
+                                    "endLine": 12,
+                                    "endColumn": 28,
+                                    "charOffset": 214,
+                                    "charLength": 19,
+                                    "snippet": {
+                                        "text": "targetSdkVersion 32"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 10,
+                                    "endLine": 15,
+                                    "snippet": {
+                                        "text": "        applicationId \"com.android.example.lint_usage\"\n        minSdkVersion 21\n        targetSdkVersion 32\n        versionCode 1"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "fixes": [
+                        {
+                            "description": {
+                                "text": "Update targetSdkVersion to 33"
+                            },
+                            "artifactChanges": [
+                                {
+                                    "artifactLocation": {
+                                        "uriBaseId": "%SRCROOT%",
+                                        "uri": "app/build.gradle"
+                                    },
+                                    "replacements": [
+                                        {
+                                            "deletedRegion": {
+                                                "startLine": 12,
+                                                "startColumn": 26,
+                                                "charOffset": 231,
+                                                "endLine": 12,
+                                                "endColumn": 28,
+                                                "charLength": 2
+                                            },
+                                            "insertedContent": {
+                                                "text": "33\n"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "ce07ceda813adef5"
+                    }
+                },
+                {
+                    "ruleId": "SampleId",
+                    "ruleIndex": 2,
+                    "message": {
+                        "text": "This code mentions lint: Congratulations",
+                        "markdown": "This code mentions `lint`: **Congratulations**"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/java/com/android/example/Test.kt"
+                                },
+                                "region": {
+                                    "startLine": 8,
+                                    "startColumn": 14,
+                                    "endLine": 8,
+                                    "endColumn": 18,
+                                    "charOffset": 237,
+                                    "charLength": 4,
+                                    "snippet": {
+                                        "text": "lint"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 6,
+                                    "endLine": 11,
+                                    "snippet": {
+                                        "text": "    // for mentions of \"lint\", which should trigger an\n    // error\n    val s = \"lint\"\n    fun lint() { }"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "14c600c7c4fd7703"
+                    }
+                },
+                {
+                    "ruleId": "SampleId",
+                    "ruleIndex": 2,
+                    "message": {
+                        "text": "This code mentions lint: Congratulations",
+                        "markdown": "This code mentions `lint`: **Congratulations**"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "app/src/main/java/com/android/example/Test.kt"
+                                },
+                                "region": {
+                                    "startLine": 10,
+                                    "startColumn": 17,
+                                    "endLine": 10,
+                                    "endColumn": 21,
+                                    "charOffset": 278,
+                                    "charLength": 4,
+                                    "snippet": {
+                                        "text": "lint"
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 8,
+                                    "endLine": 13,
+                                    "snippet": {
+                                        "text": "    val s = \"lint\"\n    fun lint() { }\n    val lint = \"lint\"\n}"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "74c25f1affd50ea6"
+                    }
+                },
+                {
+                    "ruleId": "GradleDependency",
+                    "ruleIndex": 0,
+                    "message": {
+                        "text": "A newer version of com.android.tools.lint:lint-api than 30.2.0 is available: 30.3.1"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "checks/build.gradle"
+                                },
+                                "region": {
+                                    "startLine": 15,
+                                    "startColumn": 17,
+                                    "endLine": 15,
+                                    "endColumn": 63,
+                                    "charOffset": 345,
+                                    "charLength": 46,
+                                    "snippet": {
+                                        "text": "\"com.android.tools.lint:lint-api:$lintVersion\""
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 13,
+                                    "endLine": 18,
+                                    "snippet": {
+                                        "text": "dependencies {\n    // For a description of the below dependencies, see the main project README\n    compileOnly \"com.android.tools.lint:lint-api:$lintVersion\"\n    // You typically don't need this one:"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "6e8a148ac9440769"
+                    }
+                },
+                {
+                    "ruleId": "GradleDependency",
+                    "ruleIndex": 0,
+                    "message": {
+                        "text": "A newer version of com.android.tools.lint:lint-checks than 30.2.0 is available: 30.3.1"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "checks/build.gradle"
+                                },
+                                "region": {
+                                    "startLine": 17,
+                                    "startColumn": 17,
+                                    "endLine": 17,
+                                    "endColumn": 66,
+                                    "charOffset": 450,
+                                    "charLength": 49,
+                                    "snippet": {
+                                        "text": "\"com.android.tools.lint:lint-checks:$lintVersion\""
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 15,
+                                    "endLine": 20,
+                                    "snippet": {
+                                        "text": "    compileOnly \"com.android.tools.lint:lint-api:$lintVersion\"\n    // You typically don't need this one:\n    compileOnly \"com.android.tools.lint:lint-checks:$lintVersion\"\n    compileOnly \"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion\""
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "8236e925b0b78ee2"
+                    }
+                },
+                {
+                    "ruleId": "GradleDependency",
+                    "ruleIndex": 0,
+                    "message": {
+                        "text": "A newer version of org.jetbrains.kotlin:kotlin-stdlib-jdk7 than 1.6.21 is available: 1.7.10"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "checks/build.gradle"
+                                },
+                                "region": {
+                                    "startLine": 18,
+                                    "startColumn": 17,
+                                    "endLine": 18,
+                                    "endColumn": 73,
+                                    "charOffset": 516,
+                                    "charLength": 56,
+                                    "snippet": {
+                                        "text": "\"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion\""
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 16,
+                                    "endLine": 21,
+                                    "snippet": {
+                                        "text": "    // You typically don't need this one:\n    compileOnly \"com.android.tools.lint:lint-checks:$lintVersion\"\n    compileOnly \"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion\"\n"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "e21e097e68e3904d"
+                    }
+                },
+                {
+                    "ruleId": "GradleDependency",
+                    "ruleIndex": 0,
+                    "message": {
+                        "text": "A newer version of com.android.tools.lint:lint than 30.2.0 is available: 30.3.1"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "checks/build.gradle"
+                                },
+                                "region": {
+                                    "startLine": 21,
+                                    "startColumn": 24,
+                                    "endLine": 21,
+                                    "endColumn": 66,
+                                    "charOffset": 641,
+                                    "charLength": 42,
+                                    "snippet": {
+                                        "text": "\"com.android.tools.lint:lint:$lintVersion\""
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 19,
+                                    "endLine": 24,
+                                    "snippet": {
+                                        "text": "\n    testImplementation \"junit:junit:4.13.2\"\n    testImplementation \"com.android.tools.lint:lint:$lintVersion\"\n    testImplementation \"com.android.tools.lint:lint-tests:$lintVersion\""
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "923f3d48d1976907"
+                    }
+                },
+                {
+                    "ruleId": "GradleDependency",
+                    "ruleIndex": 0,
+                    "message": {
+                        "text": "A newer version of com.android.tools.lint:lint-tests than 30.2.0 is available: 30.3.1"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uriBaseId": "%SRCROOT%",
+                                    "uri": "checks/build.gradle"
+                                },
+                                "region": {
+                                    "startLine": 22,
+                                    "startColumn": 24,
+                                    "endLine": 22,
+                                    "endColumn": 72,
+                                    "charOffset": 707,
+                                    "charLength": 48,
+                                    "snippet": {
+                                        "text": "\"com.android.tools.lint:lint-tests:$lintVersion\""
+                                    }
+                                },
+                                "contextRegion": {
+                                    "startLine": 20,
+                                    "endLine": 25,
+                                    "snippet": {
+                                        "text": "    testImplementation \"junit:junit:4.13.2\"\n    testImplementation \"com.android.tools.lint:lint:$lintVersion\"\n    testImplementation \"com.android.tools.lint:lint-tests:$lintVersion\"\n}"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "partialFingerprints": {
+                        "sourceContext/v1": "832bb14ab7ee0171"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+*.iml
+*.puml
+*.hprof
+.DS_Store
+.gradle
+.idea
+.externalNativeBuild
+.git-credentials
+local.properties
+reference.json
+/build/
+/*/build/
+/*/lint-report.html
+log_page_key.json

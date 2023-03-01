@@ -1,0 +1,35 @@
+buildscript {
+    ext {
+        kotlinVersion = '1.6.21'
+        // Current release: Chipmunk / AGP 7.2
+        gradlePluginVersion = '4.1.0'
+        lintVersion = '30.3.1'
+        // lintVersion = '30.2.0-rc02'
+        // Upcoming lint target: Dolphin / AGP 7.3
+        // gradlePluginVersion = '7.3.0-beta01'
+        // lintVersion = '30.3.0-beta01'
+        // Upcoming lint target: Electric Eel / AGP 7.4
+        // gradlePluginVersion = '7.4.0-alpha02'
+        // lintVersion = '30.4.0-alpha02'
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradlePluginVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

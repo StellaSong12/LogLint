@@ -1,0 +1,151 @@
+**Recent Changes**
+
+This chapter lists recent changes to lint that affect users of lint.
+For information about internal improvements and API changes affecting
+lint check authors, see the API Guide.
+
+**7.4**
+
+* New built-in lint-checks:
+
+  Issue ID                    | Summary
+  ----------------------------|-----------------------------------
+  `PermissionNamingConvention`| Custom permissions not following naming convention
+  `KnownPermissionError`      | Well-known permission errors, e.g. `android:permission="true"`
+  `SystemPermissionTypo`      | Usage of permissions that look like system permissions, but have typos
+  `CustomPermissionTypo`      | Usage of permissions that look like custom permissions from the same project, but have typos
+  `ReservedSystemPermission`  | Accidental redefining of a framework permission
+  `GestureBackNavigation`     | Usage of KeyEvent.KEYCODE_BACK
+  `UnusedTranslation`         | Unused translation, not declared in localeConfig
+  `NotificationPermission`    | Notifications Without android.permission.POST_NOTIFICATIONS
+  `MonochromeLauncherIcon`    | Monochrome icon is not defined
+  `PlaySdkIndexNonCompliant`  | Library has policy issues in SDK Index
+  `TileProviderPermissions`   | TileProvider does not set permission
+  `SquareAndRoundTilePreviews`| TileProvider does not have round and square previews
+  `InternalInsetResource`     | Using internal inset dimension resource
+
+* Lint now respects the `--offline` flag passed to Gradle, and will refrain
+  from making network calls for checks that normally do (such as
+  `AppLinksAutoVerify`).
+
+**7.3**
+
+* New built-in lint-checks:
+
+  Issue ID                 | Summary
+  -------------------------|-----------------------------------
+  `SuspiciousIndentation`  | Flags suspiciously indented code
+  `StringFormatTrivial`    | Avoid trivial conversions in String.format
+  `WearableActionDuplicate`| Duplicate watch face configurations
+  `EmptySuperCall`         | Invoking super. on @EmptySuper method
+  `OpenForTesting`         | Overriding @OpenForTesting outside tests
+  `DeprecatedSinceApi`     | Calling deprecated SDK backport methods
+  `ReturnThis`             | Not returning “this” from @ReturnThis methods
+  `KotlinNullnessAnnotation`| Using nullability annotations in Kotlin
+  `MissingInflatedId`      | ID not found in inflated resource
+  `NotificationId0`        | Notification Id is 0
+
+* The Android Gradle plugin now supports having missing baseline files
+  instead of empty baseline files. Add the experimental flag
+  `android.experimental.lint.missingBaselineIsEmptyBaseline=true` in
+  `gradle.properties`, and then run the new task `updateLintBaseline`
+  to create or update baselines.
+
+**7.2**
+
+* New built-in lint checks:
+
+  Issue ID                | Summary
+  ------------------------|-----------------------------------
+  `AssertionSideEffect`   | Assertions that have side effects
+  `BidiSpoofing`          | Misleading bidirectional Unicode strings
+  `MotionLayoutMissingId` | Views inside MotionLayout require an id
+  `UastImplementation`    | Avoid UAST implementation classes
+
+**7.1**
+
+* The various annotation-based checks now perform additional checks for
+  overloaded Kotlin operators, as well as additional scenarios where
+  the annotation is inherited from outer classes, super methods, and in
+  the case of fields, containing classes and packages (this was already
+  the case for methods). This may show up as new violations in your
+  codebase, such as the `VisibleForTests` check flagging additional
+  usages of test-only APIs outside of tests.
+
+* New built-in lint checks:
+
+  Issue ID                | Summary
+  ------------------------|-----------------------------------
+  `FileEndsWithExt`       | Flags suspicious usages of File.endsWith(extension)
+  `DataExtractionRules`   | Missing data extraction rules
+  `RedundantLabel`        | Redundant label on activity in manifest
+  `DiscouragedApi`        | Using APIs annotated with @Discouraged
+  `ViewBindingType`       | Validation for `tools:viewBindingType`
+  `AppBundleLocaleChanges`| Handling runtime locale changes
+
+* Updated lint checks:
+
+  Issue ID             | Summary
+  ---------------------|--------------------------
+  `MissingTranslation` | Now checks for missing translations of plurals
+  `WrongConstant`      | Now has quickfixes to replace with constants
+  `CheckResult`        | Now also runs in unit tests
+
+* Removed lint check `MediaCapabilities` since its advice is no longer the
+  recommended practice.
+
+**7.0**
+
+* New built-in lint checks:
+
+  Issue ID                         | Summary
+  ---------------------------------|-----------------------------------
+  `AnnotateVersionCheck`           | Annotate SDK_INT checks
+  `CoarseFineLocation`             | Cannot use `ACCESS_FINE_LOCATION` without `ACCESS_COARSE_LOCATION`
+  `CustomSplashScreen`             | Application-defined Launch Screen
+  `CustomX509TrustManager`         | Implements custom TLS trust manager
+  `HighSamplingRate`               | High sensor sampling rate
+  `IntentFilterExportedReceiver`   | Unspecified `android:exported` in manifest
+  `LaunchActivityFromNotification` | Notification Launches Services or BroadcastReceivers
+  `LeanbackUsesWifi`               | Using android.hardware.wifi on TV
+  `MediaCapabilities`              | Media Capabilities property not specified
+  `NotificationTrampoline`         | Notification Trampolines
+  `NotifyDataSetChanged`           | Invalidating All RecyclerView Data
+  `TileProviderPermissions`        | TileProvider does not set permission
+  `TrustAllX509TrustManager`       | Insecure TLS/SSL trust manager
+  `UnspecifiedImmutableFlag`       | Missing `PendingIntent` mutability flag
+  `WatchFaceEditor`                | Watch face editor must use launchMode=“standard”
+  `WebViewClientOnReceivedSslError`| Proceeds with the HTTPS connection despite SSL errors
+  `IntentFilterUniqueDataAttributes` | Data tags should only declare unique attributes
+
+* Lint checks now include information for reported incidents where the
+  lint check came from, such as which library artifact provided it.
+  This should make it easier to request enhancements or file bugs
+  around false positives or false negatives.
+
+* The Gradle plugin now maps the `lint` task to the default variant's
+  lint task instead of running it across all variants and accumulating
+  results. This is much faster, is usually what you want, and now the
+  target name will not change based on whether the project has product
+  flavors, so you can start just running `./gradlew :app:lint` instead
+  of `./gradlew :app:lintDebug` or `:app:lintProDebug` etc.
+  Furthermore, the `lintOptions` block is now just named `lint`
+  instead.
+
+* Lint “partial analysis” mode is now integrated in lint.
+
+* The API check now also looks up operator overloading functions.
+
+**4.2**
+
+* Improved support for lint.xml configuration files. You can now
+  specify lint.xml files in project source folders, where the settings
+  will apply recursively within just that folder. You can also specify
+  options for detectors, and enable or disable checks for specific
+  clients (such as just in Gradle, or just in the IDE, and so on.)
+
+* Support for SARIF reports; a static analysis report file format
+  supported by for example GitHub, allowing the results to be
+  visualized in a unified way on CI servers.
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
