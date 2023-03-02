@@ -1,3 +1,6 @@
+**Fork from [Google LintExample](https://github.com/googlesamples/android-custom-lint-rules)**
+**Add my lint rule to check log event valid**
+
 Custom Lint Rules
 =================
 
